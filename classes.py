@@ -57,8 +57,8 @@ class Conjunt:
     def __str__(self):
         seq = ""
         for element in self.__elements:
-            seq += element + ","
-        return "{" + seq + "}"
+            seq += str(element) + ", "
+        return "{" + seq[0:-2] + "}"
 
 
 class Matriu:
@@ -161,7 +161,7 @@ class Graf:
 
     def mostrar_graf(self):
         self.__graf.mostrar_per_pantalla()
-    """
+
     def profunditat(self, v0):
         visitats = Conjunt()
         pila = [v0]
@@ -175,8 +175,8 @@ class Graf:
                         if not visitats.conte(i):
                             pila.append(i)
         return visitats
-    """
 
+    """
     def profunditat(self, v0):
         visitats = set()
         pila = [v0]
@@ -186,10 +186,11 @@ class Graf:
             if v not in visitats:
                 visitats.add(v)
                 for veinat in range(self.__vertex):
-                    if 0 in (self.__graf.get_valor(v, veinat), self.__graf.get_valor(veinat, v)):
+                    if self.__graf.get_valor(v, veinat) != 0 or self.__graf.get_valor(veinat, v) != 0:
                         if veinat not in visitats:
                             pila.append(veinat)
         return visitats
+    """
 
     def warshall(self):
         g = self.__graf
