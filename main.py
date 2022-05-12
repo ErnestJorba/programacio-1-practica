@@ -1,4 +1,5 @@
 import classes
+import subprogrames
 
 if __name__ == "__main__":
     if int(input("Vols crear un graf? ")) == 1:
@@ -9,9 +10,12 @@ if __name__ == "__main__":
             entrada = int(input("Introdueix el vertes d'entrada: "))
             pes = int(input("Introdueix el pes de l'aresta: "))
             graf.afegir_aresta(sortida, entrada, pes)
-            if int(input("Vols continuar? ")) == 0:
+            if int(input("Vols continuar? ")) != 1:
                 break
         graf.mostrar_graf()
+
+        if int(input("Vols veure si és connex? ")) == 1:
+            print(subprogrames.es_connex(graf))
 
     else:
         print("Fins aviat!")

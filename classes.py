@@ -83,6 +83,9 @@ class Matriu:
 
         return self.__matriu[fila][columna]
 
+    def get_matriu(self):
+        return self.__matriu
+
     # Sobreescrivim la funció len de Python, aquest mètode retorna la mida de la matriu.
     def __len__(self):
 
@@ -133,11 +136,14 @@ class Matriu:
 
     def __pow__(self, power, modulo=None):
         m = self.copia()
+
         if power > 0:
             for i in range(power):
-                m * self
+                m *= self
+
         elif power == 0:
             m.fer_identitat()
+
         return m
 
     def __add__(self, other):
@@ -161,6 +167,9 @@ class Graf:
 
     def mostrar_graf(self):
         self.__graf.mostrar_per_pantalla()
+
+    def get_graf(self):
+        return self.__graf
 
     def profunditat(self, v0):
         visitats = Conjunt()
@@ -209,6 +218,4 @@ class Graf:
 
 
 if __name__ == "__main__":
-    graf_exemple = Graf(4)
-    graf_exemple.mostrar_graf()
-    print(graf_exemple)
+    print("Hello world!")
