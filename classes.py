@@ -180,7 +180,6 @@ class Graf:
         g = self.__graf
         n_vertex = self.__vertex
         m = Graf(n_vertex)
-        return g, m
 
     def prim(self):
         a = self.__graf
