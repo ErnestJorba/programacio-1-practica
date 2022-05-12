@@ -161,7 +161,7 @@ class Graf:
 
     def mostrar_graf(self):
         self.__graf.mostrar_per_pantalla()
-
+    """
     def profunditat(self, v0):
         visitats = Conjunt()
         pila = [v0]
@@ -174,6 +174,21 @@ class Graf:
                     if self.__graf.get_valor(v, i) != 0 or self.__graf.get_valor(i, v) != 0:
                         if not visitats.conte(i):
                             pila.append(i)
+        return visitats
+    """
+
+    def profunditat(self, v0):
+        visitats = set()
+        pila = [v0]
+        while pila:  # while pila != []:
+            v = pila[0]
+            pila.pop(0)
+            if v not in visitats:
+                visitats.add(v)
+                for veinat in range(self.__vertex):
+                    if 0 in (self.__graf.get_valor(v, veinat), self.__graf.get_valor(veinat, v)):
+                        if veinat not in visitats:
+                            pila.append(veinat)
         return visitats
 
     def warshall(self):
