@@ -12,4 +12,9 @@ def es_connex(graf):
         for j in range(len(matriu)):
             if matriu[i][j] == 0:
                 return False
+
     return True
+
+
+if __name__ == "__main__":
+    print("Hello world!")

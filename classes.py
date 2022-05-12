@@ -103,14 +103,14 @@ class Matriu:
 
             print("")
 
-    def copia(self):  # Extra
+    def copia(self):
         copia = Matriu(self.__n)
         for i in range(copia.__n):
             for j in range(copia.__n):
                 copia.__matriu[i][j] = self.__matriu[i][j]
         return copia
 
-    def fer_identitat(self):  # Extra
+    def fer_identitat(self):
         for i in range(len(self.__matriu)):
             for j in range(len(self.__matriu[i])):
                 if i != j:
@@ -121,17 +121,21 @@ class Matriu:
     def __mul__(self, other):
         if type(other) == type(self):
             matriu_mult = Matriu(len(self.__matriu))
+
             for i in range(len(self.__matriu)):
                 for j in range(len(self.__matriu)):
                     for k in range(len(self.__matriu)):
                         matriu_mult.__matriu[i][j] += self.__matriu[i][k] * other.__matriu[k][j]
+
             return matriu_mult
 
         if type(other) == type(3):
             matriu_mult = self.copia()
+
             for i in range(matriu_mult.__n):
                 for j in range(matriu_mult.__n):
                     matriu_mult.__matriu[i][j] *= other
+
             return matriu_mult
 
     def __pow__(self, power, modulo=None):
@@ -148,16 +152,18 @@ class Matriu:
 
     def __add__(self, other):
         matriu_suma = Matriu(len(self.__matriu))
+
         for i in range(len(self.__matriu)):
             for j in range(len(self.__matriu)):
                 matriu_suma.__matriu[i][j] = self.__matriu[i][j] + other.__matriu[i][j]
+
         return matriu_suma
 
 
 class Graf:
-    def __init__(self, enter):
-        self.__vertex = enter
-        self.__graf = Matriu(enter)
+    def __init__(self, mida):
+        self.__vertex = mida
+        self.__graf = Matriu(mida)
 
     def afegir_aresta(self, origen, desti, valor):
         self.__graf.modificar_valor(origen, desti, valor)
@@ -211,7 +217,6 @@ class Graf:
 
     def prim(self):
         a = self.__graf
-        return a
 
     def __str__(self):
         return f"{self.__vertex}"

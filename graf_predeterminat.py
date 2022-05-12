@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     # graf_test1.mostrar_graf()
     # print(graf_test1.profunditat(2))
-    # print(subprogrames.es_connex(graf_test1))
+    print(f"Graf 1: {subprogrames.es_connex(graf_test1)}")
 
     graf_test2 = classes.Graf(4)
     graf_test2.afegir_aresta(0, 1, 1)
@@ -27,4 +27,4 @@ if __name__ == "__main__":
     graf_test2.afegir_aresta(3, 2, 1)
 
     # graf_test2.mostrar_graf()
-    # print(subprogrames.es_connex(graf_test2))
+    print(f"Graf 2: {subprogrames.es_connex(graf_test2)}")

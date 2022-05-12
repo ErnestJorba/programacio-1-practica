@@ -2,6 +2,8 @@ import classes
 import subprogrames
 
 if __name__ == "__main__":
+    print("Benginguts! Aquesta és la pràctica de final de curs de l'Ernest Jorba Calafell, bona sort!")
+
     if int(input("Vols crear un graf? ")) == 1:
 
         graf = classes.Graf(int(input("Introdueix el nombre de vertexs: ")))
@@ -16,6 +18,9 @@ if __name__ == "__main__":
 
         if int(input("Vols veure si és connex? ")) == 1:
             print(subprogrames.es_connex(graf))
+
+        if int(input("Vols veure el resultat d'aplicar l'algorisme de profunditat a aquest graf? ")) == 1:
+            print(graf.profunditat(int(input("Introdueix el vèrtex on vols començar: "))))
 
     else:
         print("Fins aviat!")
