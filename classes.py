@@ -176,7 +176,10 @@ class Graf:
                             pila.append(i)
         return visitats
 
-    """    
+    """ 
+    # El problema de fer servir els conjunts predeterminats de python és que, com que són conjunts, l'ordre no 
+    # està definit, i per tant quan ens ensenya el conjunt els elements apareixen en ordre ascendent
+    
     def profunditat(self, v0):
         visitats = set()
         pila = [v0]
