@@ -176,7 +176,7 @@ class Graf:
                             pila.append(i)
         return visitats
 
-    """
+    """    
     def profunditat(self, v0):
         visitats = set()
         pila = [v0]
