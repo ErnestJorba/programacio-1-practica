@@ -217,6 +217,7 @@ class Graf:
 
     def prim(self):
         a = self.__graf
+        return a
 
     def __str__(self):
         return f"{self.__vertex}"
