@@ -1,7 +1,7 @@
 import classes
 
 
-def es_connex(graf):
+def es_connex(graf):  # Nota: només funciona pels grafs no dirigits!!
     matriu_graf = graf.get_graf()
     for i in range(1, len(matriu_graf) + 1):
         matriu_graf += matriu_graf ** i
