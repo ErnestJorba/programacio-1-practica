@@ -177,6 +177,14 @@ class Graf:
     def get_graf(self):
         return self.__graf
 
+    def copia(self):
+        graf_copia = Graf(self.__vertex)
+        for i in range(len(self.__graf)):
+            for j in range(len(self.__vertex)):
+                valor = self.__graf.get_valor(i, j)
+                graf_copia.__graf.modificar_valor(i, j, valor)
+        return graf_copia
+
     def profunditat(self, v0):
         visitats = Conjunt()
         pila = [v0]
@@ -213,11 +221,23 @@ class Graf:
     def warshall(self):
         g = self.__graf
         n_vertex = self.__vertex
-        m = Graf(n_vertex)
+        m = self.copia()
 
     def prim(self):
-        a = self.__graf
-        return a
+        s = Conjunt()
+        t = Conjunt()
+        v_0 = 0
+        s.afegir(v_0)
+
+        for i in range(1, self.__vertex - 1):
+            if 0 != self.__graf.get_valor(i, i + 1) < self.__graf.get_valor(i + 1, i) != 0:
+                t.afegir((i, i + 1))
+                s.afegir(i + 1)
+            elif 0 != self.__graf.get_valor(i, i + 1) > self.__graf.get_valor(i + 1, i) != 0:
+                t.afegir((i + 1, i))
+                s.afegir(i)
+
+        return t
 
     def __str__(self):
         return f"{self.__vertex}"
