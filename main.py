@@ -3,12 +3,14 @@ import subprogrames
 
 if __name__ == "__main__":
     print("Benginguts! Aquesta és la pràctica de final de curs de l'Ernest Jorba Calafell, bona sort!")
-    print("Vols grear un graf?")
-    if int(input("→ ")) == 1:
+    print("Què vols fer?\n (1) Crear un graf\n (2) Carregar un graf d'un fitxer")
+    eleccio = int(input("→ "))
 
+    if eleccio == 1:
         print("Introdueix el nombre de vertexs")
         graf = classes.Graf(int(input("→ ")))
         print("Quantes arestes vols afegir al graf? ")
+
         for i in range(int(input("→ "))):
             print("Introdueix el vèrtex de sortida:")
             sortida = int(input("→ "))
@@ -17,16 +19,30 @@ if __name__ == "__main__":
             print("Introdueix el pes de l'aresta:")
             pes = int(input("→ "))
             graf.afegir_aresta(sortida, entrada, pes)
+
         graf.mostrar_graf()
 
-        print("Vols veure si és connex?")
-        if int(input("→ ")) == 1:
-            print(subprogrames.es_connex(graf))
+        while True:
+            print("Què vols fer ara?\n (0) Sortir\n (1) Veure si és connex\n (2) Aplicar l'algorisme de profunditat\n "
+                  "(3) Aplicar l'algorisme de prim")
+            eleccio = int(input("→ "))
 
-        print("Vols veure el resultat d'aplicar l'algorisme de profunditat a aquest graf?")
-        if int(input("→ ")) == 1:
-            print("Introdueix el vèrtex on vols començar:")
-            print(graf.profunditat(int(input("→ "))))
+            if eleccio == 1:
+                print(subprogrames.es_connex(graf))
+
+            elif eleccio == 2:
+                print("Introdueix el vèrtex on vols començar:")
+                print(graf.profunditat(int(input("→ "))))
+
+            elif eleccio == 3:
+                print(graf.prim())
+
+            elif eleccio == 0:
+                print("Fins aviat!")
+                break
+
+    elif eleccio == 2:
+        print("carregar fitxers")
 
     else:
         print("Fins aviat!")

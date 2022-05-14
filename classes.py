@@ -189,9 +189,9 @@ class Graf:
 
         return graf_copia
 
-    def profunditat(self, v0):
+    def profunditat(self, v_0):
         visitats = Conjunt()
-        pila = [v0]
+        pila = [v_0]
 
         while pila:  # while pila != []:
             v = pila[0]
@@ -224,33 +224,15 @@ class Graf:
         return visitats
     """
 
-    # def warshall(self):
-    #     g = self.__graf
-    #     n_vertex = self.__vertex
-    #     m = self.copia()
+    def warshall(self):
+        n_vertex = self.__vertex
+        m = Graf(n_vertex)
 
-    """def prim(self):
-        s = [0]
-        t = []
-
-        while True:
-            s_copia = s.copy()
-            v = s_copia[-1]  # aixo no acaba de funcionar
-            minim_pes = self.__graf.maxim()
-
-            for v_i in range(1, self.__vertex):
-                if 0 != self.__graf.get_valor(v, v_i) <= minim_pes and v_i not in s:
-                    minim_pes = self.__graf.get_valor(v, v_i)
-                    vertex_adjacent = v_i
-
-            s.append(vertex_adjacent)
-            t.append((v, vertex_adjacent))
-
-            if len(t) == self.__vertex - 1:  # Tenim que en un arbre T = (V, E) *sempre* es cumpleix que |E| = |V| - 1,
-                # on V és el conjunt dels vèrtexs i E el conjunt de les arestes.
-                break
-
-        return t"""
+        for v_k in range(n_vertex):
+            for v_x in range(n_vertex):
+                for v_y in range(n_vertex):
+                    if m.__graf.get_valor(v_x, v_k) != 0 and m.__graf.get_valor(v_k, v_y) != 0:
+                        m.__graf.modificar_valor(v_x, v_y, 1)
 
     def prim(self):
         s = set()
@@ -258,29 +240,25 @@ class Graf:
         t = set()
 
         while True:
-            pes_minim = self.__graf.maxim()
+            minim_pes = self.__graf.maxim()
             u = 0
             v = 0
+
             for v_i in range(self.__vertex):
-                if v_i in s:
-                    for v_j in range(self.__vertex):
-                        if not (v_j in s) and self.__graf.get_valor(v_i, v_j):
-                            if pes_minim >= self.__graf.get_valor(v_i, v_j):
-                                pes_minim = self.__graf.get_valor(v_i, v_j)
-                                u = v_i
-                                v = v_j
+                for v_j in range(self.__vertex):
+                    if (0 != self.__graf.get_valor(v_i, v_j) <= minim_pes) and (v_i in s) and (v_j not in s):
+                        minim_pes = self.__graf.get_valor(v_i, v_j)
+                        u = v_i
+                        v = v_j
 
-            t.add((u, v))
             s.add(v)
+            t.add((u, v))
 
-            if len(t) == self.__vertex - 1:
+            if len(t) == self.__vertex - 1:  # Tenim que en un arbre T = (V, E) *sempre* es cumpleix que |E| = |V| - 1,
+                # on V és el conjunt dels vèrtexs i E el conjunt de les arestes.
                 break
 
         return t
 
     def __str__(self):
         return f"{self.__vertex}"
-
-
-if __name__ == "__main__":
-    print("Hello world!")

@@ -14,7 +14,3 @@ def es_connex(graf):  # Nota: només funciona pels grafs no dirigits!!
                 return False
 
     return True
-
-
-if __name__ == "__main__":
-    print("Hello world!")
