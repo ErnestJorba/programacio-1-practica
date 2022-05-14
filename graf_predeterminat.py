@@ -49,7 +49,7 @@ if __name__ == "__main__":
     graf_test3.afegir_aresta(4, 1, 4)
     # graf_test3.afegir_aresta(1, 4, 4)
 
-    print(f"Graf 3: {graf_test3.prim()}")
+    print(f"Graf 3: {graf_test3.algorisme_prim()}")
     # print(subprogrames.es_connex(graf_test3))
 
     graf_test4 = classes.Graf(6)
@@ -68,6 +68,8 @@ if __name__ == "__main__":
     graf_test4.afegir_aresta(5, 4, 3)
     # graf_test4.afegir_aresta(4, 5, 3)
 
-    print(f"Graf 4: {graf_test4.prim()}")
+    print(f"Graf 4: {graf_test4.algorisme_prim()}")
     # graf_test4.mostrar_graf()
     # print(subprogrames.es_connex(graf_test4))
+
+    graf_test4.algorisme_warshall().mostrar_graf()

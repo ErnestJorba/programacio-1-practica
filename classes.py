@@ -224,17 +224,20 @@ class Graf:
         return visitats
     """
 
-    def warshall(self):
+    def algorisme_warshall(self):  # no se si funciona be perque no tinc clar que ha de fer exactament
+        g = self.__graf
         n_vertex = self.__vertex
         m = Graf(n_vertex)
 
         for v_k in range(n_vertex):
             for v_x in range(n_vertex):
                 for v_y in range(n_vertex):
-                    if m.__graf.get_valor(v_x, v_k) != 0 and m.__graf.get_valor(v_k, v_y) != 0:
+                    if g.get_valor(v_x, v_k) != 0 and g.get_valor(v_k, v_y) != 0:
                         m.__graf.modificar_valor(v_x, v_y, 1)
 
-    def prim(self):
+        return m
+
+    def algorisme_prim(self):
         s = set()
         s.add(0)
         t = set()

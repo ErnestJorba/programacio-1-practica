@@ -20,24 +20,42 @@ if __name__ == "__main__":
             pes = int(input("→ "))
             graf.afegir_aresta(sortida, entrada, pes)
 
-        graf.mostrar_graf()
-
         while True:
-            print("Què vols fer ara?\n (0) Sortir\n (1) Veure si és connex\n (2) Aplicar l'algorisme de profunditat\n "
-                  "(3) Aplicar l'algorisme de prim")
+            print("\nQuè vols fer ara?\n (0) Sortir\n (1) Veure el meu graf\n (2) Veure si és connex\n (3) Aplicar "
+                  "l'algorisme de profunditat\n (4) Aplicar l'algorisme de prim\n (5) Aplicar l'algorisme de Warhsall")
             eleccio = int(input("→ "))
 
             if eleccio == 1:
-                print(subprogrames.es_connex(graf))
+                print("")
+                graf.mostrar_graf()
+                print("")
 
             elif eleccio == 2:
+                if subprogrames.es_connex(graf):
+                    print("Sí que és connex")
+                else:
+                    print("No és connex")
+
+            elif eleccio == 3:
                 print("Introdueix el vèrtex on vols començar:")
                 print(graf.profunditat(int(input("→ "))))
 
-            elif eleccio == 3:
-                print(graf.prim())
+            elif eleccio == 4:
+                print(graf.algorisme_prim())
+
+            elif eleccio == 5:
+                graf.algorisme_warshall().mostrar_graf()
 
             elif eleccio == 0:
+                print("Vols guardar el graf?\n (0) No\n (1) Sí")
+                eleccio = int(input("→ "))
+
+                if eleccio == 0:
+                    print("no guardar")
+
+                elif eleccio == 1:
+                    print("guardar")
+
                 print("Fins aviat!")
                 break
 
