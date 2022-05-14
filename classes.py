@@ -229,44 +229,7 @@ class Graf:
     #     n_vertex = self.__vertex
     #     m = self.copia()
 
-    """
-    def prim(self):
-        s = Conjunt()
-        t = Conjunt()
-        v_0 = 0
-        s.afegir(v_0)
-
-        for i in range(1, self.__vertex - 1):
-            if 0 != self.__graf.get_valor(i, i + 1) < self.__graf.get_valor(i + 1, i) != 0:
-                t.afegir((i, i + 1))
-                s.afegir(i + 1)
-            elif 0 != self.__graf.get_valor(i, i + 1) > self.__graf.get_valor(i + 1, i) != 0:
-                t.afegir((i + 1, i))
-                s.afegir(i)
-    return t
-    """
-
-    """
-    def prim(self):
-        s = set()
-        s.add(0)
-        t = set()
-
-        for i in range(1, self.__vertex):
-            aresta_minima = sys.maxsize
-            s_copia = s.copy()
-            for vertex in s_copia:
-                if i not in s:
-                    aresta = self.__graf.get_valor(vertex, i)
-                    if 0 < aresta < aresta_minima:
-                        aresta_minima = aresta
-                        t.add((i, vertex))
-                        s.add(i)
-
-        return t
-    """
-
-    def prim(self):
+    """def prim(self):
         s = [0]
         t = []
 
@@ -275,16 +238,42 @@ class Graf:
             v = s_copia[-1]  # aixo no acaba de funcionar
             minim_pes = self.__graf.maxim()
 
-            for i in range(1, self.__vertex):
-                if 0 != self.__graf.get_valor(v, i) <= minim_pes and i not in s:
-                    minim_pes = self.__graf.get_valor(v, i)
-                    vertex_adjacent = i
+            for v_i in range(1, self.__vertex):
+                if 0 != self.__graf.get_valor(v, v_i) <= minim_pes and v_i not in s:
+                    minim_pes = self.__graf.get_valor(v, v_i)
+                    vertex_adjacent = v_i
 
             s.append(vertex_adjacent)
             t.append((v, vertex_adjacent))
 
             if len(t) == self.__vertex - 1:  # Tenim que en un arbre T = (V, E) *sempre* es cumpleix que |E| = |V| - 1,
-                # amb V el conjunt dels vèrtexs i E el conjunt de les arestes.
+                # on V és el conjunt dels vèrtexs i E el conjunt de les arestes.
+                break
+
+        return t"""
+
+    def prim(self):
+        s = set()
+        s.add(0)
+        t = set()
+
+        while True:
+            pes_minim = self.__graf.maxim()
+            u = 0
+            v = 0
+            for v_i in range(self.__vertex):
+                if v_i in s:
+                    for v_j in range(self.__vertex):
+                        if not (v_j in s) and self.__graf.get_valor(v_i, v_j):
+                            if pes_minim >= self.__graf.get_valor(v_i, v_j):
+                                pes_minim = self.__graf.get_valor(v_i, v_j)
+                                u = v_i
+                                v = v_j
+
+            t.add((u, v))
+            s.add(v)
+
+            if len(t) == self.__vertex - 1:
                 break
 
         return t

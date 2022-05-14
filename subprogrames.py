@@ -3,8 +3,8 @@ import classes
 
 def es_connex(graf):  # Nota: només funciona pels grafs no dirigits!!
     matriu_graf = graf.get_graf()
-    for i in range(1, len(matriu_graf) + 1):
-        matriu_graf += matriu_graf ** i
+    for i in range(len(matriu_graf)):
+        matriu_graf += matriu_graf ** (i + 1)
 
     matriu = matriu_graf.get_matriu()
 
