@@ -179,6 +179,9 @@ class Graf:
     def get_graf(self):
         return self.__graf
 
+    def get_mida(self):
+        return self.__vertex
+
     def copia(self):
         graf_copia = Graf(self.__vertex)
 
@@ -189,7 +192,7 @@ class Graf:
 
         return graf_copia
 
-    def profunditat(self, v_0):
+    def algoritme_profunditat(self, v_0):
         visitats = Conjunt()
         pila = [v_0]
 
@@ -224,7 +227,7 @@ class Graf:
         return visitats
     """
 
-    def algorisme_warshall(self):  # no se si funciona be perque no tinc clar que ha de fer exactament
+    def algoritme_warshall(self):  # no se si funciona be perque no tinc clar que ha de fer exactament
         g = self.__graf
         n_vertex = self.__vertex
         m = Graf(n_vertex)
@@ -237,7 +240,7 @@ class Graf:
 
         return m
 
-    def algorisme_prim(self):
+    def algoritme_prim(self):
         s = set()
         s.add(0)
         t = set()
