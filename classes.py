@@ -165,10 +165,11 @@ class Graf:
     def __init__(self, ordre):
         self.__vertex = ordre
         self.__graf = Matriu(ordre)
+        self.__arestes = 0
 
     def afegir_aresta(self, origen, desti, valor):
         self.__graf.modificar_valor(origen, desti, valor)
-        # self.__graf.modificar_valor(desti, origen, valor)
+        self.__arestes += 1
 
     def eliminar_aresta(self, origen, desti):
         self.__graf.modificar_valor(origen, desti, 0)
@@ -181,6 +182,9 @@ class Graf:
 
     def get_mida(self):
         return self.__vertex
+
+    def get_ordre(self):
+        return self.__arestes
 
     def copia(self):
         graf_copia = Graf(self.__vertex)
@@ -230,7 +234,7 @@ class Graf:
     def algoritme_warshall(self):  # no se si funciona be perque no tinc clar que ha de fer exactament
         g = self.__graf
         n_vertex = self.__vertex
-        m = Graf(n_vertex)
+        m = self.copia()
 
         for v_k in range(n_vertex):
             for v_x in range(n_vertex):
@@ -241,30 +245,34 @@ class Graf:
         return m
 
     def algoritme_prim(self):
-        s = set()
-        s.add(0)
-        t = set()
+        if self.__arestes >= self.__vertex - 1:
+            s = set()
+            s.add(0)
+            t = list()
 
-        while True:
-            minim_pes = self.__graf.maxim()
-            u = 0
-            v = 0
+            while True:
+                minim_pes = self.__graf.maxim()
+                u = 0
+                v = 0
 
-            for v_i in range(self.__vertex):
-                for v_j in range(self.__vertex):
-                    if (0 != self.__graf.get_valor(v_i, v_j) <= minim_pes) and (v_i in s) and (v_j not in s):
-                        minim_pes = self.__graf.get_valor(v_i, v_j)
-                        u = v_i
-                        v = v_j
+                for v_i in range(self.__vertex):
+                    for v_j in range(self.__vertex):
+                        if (0 != self.__graf.get_valor(v_i, v_j) <= minim_pes) and (v_i in s) and (v_j not in s):
+                            minim_pes = self.__graf.get_valor(v_i, v_j)
+                            u = v_i
+                            v = v_j
 
-            s.add(v)
-            t.add((u, v))
+                s.add(v)
+                t.append((u, v))
 
-            if len(t) == self.__vertex - 1:  # Tenim que en un arbre T = (V, E) *sempre* es cumpleix que |E| = |V| - 1,
-                # on V és el conjunt dels vèrtexs i E el conjunt de les arestes.
-                break
+                if len(t) == self.__vertex - 1:  # Tenim que en un arbre T = (V, E) *sempre* es cumpleix que
+                    # |E| = |V| - 1, on V és el conjunt dels vèrtexs i E el conjunt de les arestes.
+                    break
 
-        return t
+            return t
+
+        else:
+            return "No es pot aplicar l'algoritme de Prim a aquest graf"
 
     def __str__(self):
         return f"{self.__vertex}"

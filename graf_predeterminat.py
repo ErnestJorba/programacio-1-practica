@@ -1,22 +1,8 @@
 import classes
-import subprogrames
+import graphviz
 
 
 def test_funcions():
-    graf_test1 = classes.Graf(4)
-    graf_test1.afegir_aresta(0, 1, 1)
-    graf_test1.afegir_aresta(2, 1, 1)
-    graf_test1.afegir_aresta(3, 1, 1)
-    graf_test1.afegir_aresta(1, 3, 1)
-    graf_test1.afegir_aresta(3, 3, 1)
-
-    graf_test1.afegir_aresta(1, 0, 1)
-    graf_test1.afegir_aresta(1, 2, 1)
-
-    # graf_test1.mostrar_graf()
-    # print(graf_test1.algoritme_profunditat(2))
-    # print(f"Graf 1: {subprogrames.es_connex(graf_test1)}")
-    # print(graf_test1.algoritme_prim())
 
     graf_test2 = classes.Graf(4)
     graf_test2.afegir_aresta(0, 1, 1)
@@ -113,4 +99,18 @@ if __name__ == "__main__":
 
     # test_funcions()
     # llegir_fitxers()
-    guardar_graf(graf_test1)
+    # guardar_graf(graf_test1)
+
+    f = graphviz.Digraph("text", filename="grafs/tmp.pdf")
+    f.attr(rankdir="LR", size="8,5")
+    f.attr("node", shape="circle")
+
+    for i in range(graf_test1.get_mida()):
+        for j in range(graf_test1.get_mida()):
+            if graf_test1.get_graf().get_valor(i, j) != 0:
+                f.edge(str(i), str(j), label=str(graf_test1.get_graf().get_valor(i, j)))
+
+    f.view()
+
+
+

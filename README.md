@@ -2,6 +2,4 @@
 
 ## Per fer:
 - Acabar algorisme Warshall
-- Permetre guardar grafs en fitxers
-- Permetre carregar grafs de fitxers
-- Coses extra: (1) Menu gràfic (2) Representar grafs (3) Sons
+- Coses extra: (1) Menú gràfic (3) Altres coses?
