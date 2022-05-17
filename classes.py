@@ -231,15 +231,20 @@ class Graf:
         return visitats
     """
 
-    def algoritme_warshall(self):  # no se si funciona be perque no tinc clar que ha de fer exactament
+    def algoritme_warshall(self):
         g = self.__graf
         n_vertex = self.__vertex
-        m = self.copia()
+        m = Graf(n_vertex)
+
+        for v_i in range(n_vertex):
+            for v_j in range(n_vertex):
+                if g.get_valor(v_i, v_j) != 0:
+                    m.__graf.modificar_valor(v_i, v_j, 1)
 
         for v_k in range(n_vertex):
             for v_x in range(n_vertex):
                 for v_y in range(n_vertex):
-                    if g.get_valor(v_x, v_k) != 0 and g.get_valor(v_k, v_y) != 0:
+                    if m.__graf.get_valor(v_x, v_k) != 0 and m.__graf.get_valor(v_k, v_y) != 0:
                         m.__graf.modificar_valor(v_x, v_y, 1)
 
         return m
