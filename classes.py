@@ -1,3 +1,6 @@
+import subprogrames
+
+"""
 class Conjunt:
     def __init__(self):
         self.__elements = []
@@ -60,6 +63,7 @@ class Conjunt:
         for element in self.__elements:
             seq += str(element) + ", "
         return "{" + seq[0:-2] + "}"
+"""
 
 
 class Matriu:
@@ -196,6 +200,7 @@ class Graf:
 
         return graf_copia
 
+    """
     def algoritme_profunditat(self, v_0):
         visitats = Conjunt()
         pila = [v_0]
@@ -211,12 +216,9 @@ class Graf:
                             pila.append(i)
 
         return visitats
+    """
 
-    """ 
-    # El problema de fer servir els conjunts predeterminats de python és que, com que són conjunts, l'ordre no 
-    # està definit, i per tant quan ens ensenya el conjunt els elements apareixen en ordre ascendent
-    
-    def profunditat(self, v0):
+    def algoritme_profunditat(self, v0):
         visitats = set()
         pila = [v0]
         while pila:  # while pila != []:
@@ -229,7 +231,6 @@ class Graf:
                         if veinat not in visitats:
                             pila.append(veinat)
         return visitats
-    """
 
     def algoritme_warshall(self):
         g = self.__graf
@@ -278,6 +279,15 @@ class Graf:
 
         else:
             return "No es pot aplicar l'algoritme de Prim a aquest graf"
+
+    def veure_arbre_minimal(self):
+        arbre = Graf(self.__vertex)
+        llista_arestes = self.algoritme_prim()
+
+        for aresta in llista_arestes:
+            arbre.afegir_aresta(aresta[0], aresta[1], self.__graf.get_valor(aresta[0], aresta[1]))
+
+        subprogrames.veure_graf(arbre)
 
     def __str__(self):
         return f"{self.__vertex}"

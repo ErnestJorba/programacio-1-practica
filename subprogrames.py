@@ -1,5 +1,6 @@
 import graphviz
 import glob
+
 import classes
 
 
@@ -17,13 +18,15 @@ def es_connex(graf):
 
     return True
 
+    # Una altra manera de veure si és connex o no seria mirant la matriu resultant de l'algoritme de
+    # Warshall i veure si hi ha algun zero. Si és que sí, el graf no és connex. Altrament sí que ho és.
 
-def guardar_graf(graf):
-    print("Introdueix el nom que li vols posar al teu fitxer (no cal posar l'extensió .txt): ")
-    nom_fitxer = input("→ ")
+
+def guardar_graf(graf, nom_fitxer):
 
     with open(f"grafs/{nom_fitxer}.txt", "w") as f:
         print(f"{graf}", file=f)
+
         for fila in range(graf.get_mida()):
             for columna in range(graf.get_mida()):
                 if graf.get_graf().get_valor(fila, columna):
@@ -49,8 +52,8 @@ def llegir_graf():
 
 def veure_graf(graf):
     f = graphviz.Digraph("text", filename="grafs/tmp.gv")
-    f.attr(rankdir="LR", size="8,5")
     f.attr("node", shape="circle")
+    f.attr(rankdir="LR", size="8,5")
 
     for fila in range(graf.get_mida()):
         for columna in range(graf.get_mida()):
@@ -107,7 +110,9 @@ def que_fer_amb_el_graf(graf):
                     break
 
                 elif eleccio == 1:
-                    guardar_graf(graf)
+                    print("Introdueix el nom que li vols posar al fitxer (sense extensió .txt):")
+                    nom = input("→ ")
+                    guardar_graf(graf, nom)
                     print("Tornant al menu principal", end="")
                     # time.sleep(0.5)
                     break
