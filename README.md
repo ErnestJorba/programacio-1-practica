@@ -1,4 +1,4 @@
 # Pràctica de final de curs de Programació 1
 
 ## Per fer:
-- Coses extra: (1) Menú gràfic (3) Altres coses?
+- Coses extra: Altres coses?
