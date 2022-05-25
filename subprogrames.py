@@ -1,19 +1,22 @@
 import graphviz
 import glob
+import numpy as np
 
 import classes
 
 
-def es_connex(graf):
-    matriu_graf = graf.get_graf()
+def es_connex_no_funciona(graf):
+    a = graf.get_graf()
+    matriu_graf = a.copy()
     for i in range(len(matriu_graf)):
-        matriu_graf += matriu_graf ** (i + 1)
+        # matriu_graf += matriu_graf ** (i + 1)
+        matriu_graf += np.linalg.matrix_power(matriu_graf, i + 1)
 
-    matriu = matriu_graf.get_matriu()
+    # matriu = matriu_graf.get_matriu()
 
-    for i in range(len(matriu)):
-        for j in range(len(matriu)):
-            if matriu[i][j] == 0:
+    for i in range(len(matriu_graf)):
+        for j in range(len(matriu_graf)):
+            if matriu_graf[i][j] == 0:
                 return False
 
     return True
@@ -22,15 +25,30 @@ def es_connex(graf):
     # Warshall i veure si hi ha algun zero. Si és que sí, el graf no és connex. Altrament sí que ho és.
 
 
+def es_connex(graf):
+    matriu_warshall = graf.algoritme_warshall().get_graf()
+
+    for i in range(len(matriu_warshall)):
+        for j in range(len(matriu_warshall)):
+            if matriu_warshall[i][j] == 0:
+                return False
+
+    return True
+
+
 def guardar_graf(graf, nom_fitxer):
 
     with open(f"grafs/{nom_fitxer}.txt", "w") as f:
         print(f"{graf}", file=f)
 
-        for fila in range(graf.get_mida()):
-            for columna in range(graf.get_mida()):
-                if graf.get_graf().get_valor(fila, columna):
-                    print(f"{fila} {columna} {graf.get_graf().get_valor(fila, columna)}", file=f)
+        # for fila in range(graf.get_mida()):
+        for fila in range(len(graf.get_graf())):
+            # for columna in range(graf.get_mida()):
+            for columna in range(len(graf.get_graf())):
+                # if graf.get_graf().get_valor(fila, columna):
+                if graf[fila][columna]:  # if graf[fila][columna] != 0:
+                    # print(f"{fila} {columna} {graf.get_graf().get_valor(fila, columna)}", file=f)
+                    print(f"{fila} {columna} {graf[fila][columna]}", file=f)
 
 
 def llegir_graf():
@@ -51,16 +69,18 @@ def llegir_graf():
 
 
 def veure_graf(graf):
-    f = graphviz.Digraph("text", filename="grafs/tmp.gv")
-    f.attr("node", shape="circle")
-    f.attr(rankdir="LR", size="8,5")
+    g = graphviz.Digraph("text", filename="grafs/tmp.gv")
+    g.attr("node", shape="circle")
+    g.attr(rankdir="LR", size="8,5")
 
     for fila in range(graf.get_mida()):
         for columna in range(graf.get_mida()):
-            if graf.get_graf().get_valor(fila, columna) != 0:
-                f.edge(str(fila), str(columna), label=str(graf.get_graf().get_valor(fila, columna)))
+            # if graf.get_graf().get_valor(fila, columna) != 0:
+            if graf.get_graf()[fila][columna] != 0:
+                # g.edge(str(fila), str(columna), label=str(graf.get_graf().get_valor(fila, columna)))
+                g.edge(str(fila), str(columna), label=str(int(graf.get_graf()[fila][columna])))
 
-    f.view()
+    g.view()
 
 
 def que_fer_amb_el_graf(graf):
@@ -110,7 +130,7 @@ def que_fer_amb_el_graf(graf):
                     break
 
                 elif eleccio == 1:
-                    print("Introdueix el nom que li vols posar al fitxer (sense extensió .txt):")
+                    print("Introdueix el nom que li vols posar al fitxer (sense extensió):")
                     nom = input("→ ")
                     guardar_graf(graf, nom)
                     print("Tornant al menu principal", end="")

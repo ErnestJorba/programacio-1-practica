@@ -1,5 +1,5 @@
 import glob
-from tkinter import *
+from tkinter import Tk, Button, Label, Entry
 from tkinter.ttk import Combobox, Frame, Notebook
 
 import classes
@@ -101,7 +101,7 @@ class Algoritmes:
         # Pàgina d'algoritmes
         #
 
-        self.__menu = Button(self.__algoritmes, text="Sortir", command=quit)
+        self.__menu = Button(self.__algoritmes, text="Tornar al menú principal", command=menu_principal)
         self.__menu.place(x=25, y=25)
 
         self.__matriu = Button(self.__algoritmes, text="Veure la matriu d'adjacencia del graf", command=self.matriu)
@@ -220,13 +220,13 @@ class Algoritmes:
         self.__graf.veure_arbre_minimal()
 
 
-def main():
+def menu_principal():
     global root
-    Menu(root)
-    root.title('Menú principal')
-    root.geometry("600x400+10+10")
 
-    root.mainloop()
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    Menu(root)
 
 
 def nou_graf_menu(mida):
@@ -236,12 +236,6 @@ def nou_graf_menu(mida):
         widget.destroy()
 
     CrearGraf(root, mida)
-    # creacio_graf_finestra = Tk()
-    # CrearGraf(creacio_graf_finestra, mida)
-    # creacio_graf_finestra.title('Creació graf')
-    # creacio_graf_finestra.geometry("600x400+10+10")
-
-    # creacio_graf_finestra.mainloop()
 
 
 def algoritmes_menu(graf):
@@ -250,14 +244,13 @@ def algoritmes_menu(graf):
     for widget in root.winfo_children():
         widget.destroy()
 
-    # Algoritmes(algoritme_finestra, graf)
     Algoritmes(root, graf)
-    # algoritme_finestra.title('Què vols fer amb el graf?')
-    # algoritme_finestra.geometry("600x400+10+10")
-
-    # algoritme_finestra.mainloop()
 
 
 if __name__ == "__main__":
     root = Tk()
-    main()
+    root.title("Pràctica grafs")
+    root.geometry("600x400+10+10")
+    menu_principal()
+
+    root.mainloop()

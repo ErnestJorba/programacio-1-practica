@@ -1,3 +1,6 @@
+import random
+import numpy as np
+
 import subprogrames
 
 """
@@ -65,7 +68,7 @@ class Conjunt:
         return "{" + seq[0:-2] + "}"
 """
 
-
+"""
 class Matriu:
 
     # Classe matriu quadrada.
@@ -163,23 +166,28 @@ class Matriu:
                 matriu_suma.__matriu[i][j] = self.__matriu[i][j] + other.__matriu[i][j]
 
         return matriu_suma
+"""
 
 
 class Graf:
     def __init__(self, ordre):
         self.__vertex = ordre
-        self.__graf = Matriu(ordre)
+        # self.__graf = Matriu(ordre)
+        self.__graf = np.zeros(shape=(ordre, ordre))
         self.__arestes = 0
 
     def afegir_aresta(self, origen, desti, valor):
-        self.__graf.modificar_valor(origen, desti, valor)
+        # self.__graf.modificar_valor(origen, desti, valor)
+        self.__graf[origen][desti] = valor
         self.__arestes += 1
 
     def eliminar_aresta(self, origen, desti):
-        self.__graf.modificar_valor(origen, desti, 0)
+        # self.__graf.modificar_valor(origen, desti, 0)
+        self.__graf[origen][desti] = 0
 
     def mostrar_graf(self):
-        self.__graf.mostrar_per_pantalla()
+        # self.__graf.mostrar_per_pantalla()
+        print(self.__graf)
 
     def get_graf(self):
         return self.__graf
@@ -195,8 +203,10 @@ class Graf:
 
         for i in range(len(self.__graf)):
             for j in range(len(self.__graf)):
-                pes = self.__graf.get_valor(i, j)
-                graf_copia.__graf.modificar_valor(i, j, pes)
+                # pes = self.__graf.get_valor(i, j)
+                pes = self.__graf[i][j]
+                # graf_copia.__graf.modificar_valor(i, j, pes)
+                graf_copia.__graf[i][j] = pes
 
         return graf_copia
 
@@ -227,7 +237,8 @@ class Graf:
             if v not in visitats:
                 visitats.add(v)
                 for veinat in range(self.__vertex):
-                    if self.__graf.get_valor(v, veinat) != 0 or self.__graf.get_valor(veinat, v) != 0:
+                    # if self.__graf.get_valor(v, veinat) != 0 or self.__graf.get_valor(veinat, v) != 0:
+                    if self.__graf[v][veinat] != 0 or self.__graf[veinat][v] != 0:
                         if veinat not in visitats:
                             pila.append(veinat)
         return visitats
@@ -239,14 +250,18 @@ class Graf:
 
         for v_i in range(n_vertex):
             for v_j in range(n_vertex):
-                if g.get_valor(v_i, v_j) != 0:
-                    m.__graf.modificar_valor(v_i, v_j, 1)
+                # if g.get_valor(v_i, v_j) != 0:
+                if g[v_i][v_j] != 0:
+                    # m.__graf.modificar_valor(v_i, v_j, 1)
+                    m.__graf[v_i][v_j] = 1
 
         for v_k in range(n_vertex):
             for v_x in range(n_vertex):
                 for v_y in range(n_vertex):
-                    if m.__graf.get_valor(v_x, v_k) != 0 and m.__graf.get_valor(v_k, v_y) != 0:
-                        m.__graf.modificar_valor(v_x, v_y, 1)
+                    # if m.__graf.get_valor(v_x, v_k) != 0 and m.__graf.get_valor(v_k, v_y) != 0:
+                    if m.__graf[v_x][v_k] != 0 and m.__graf[v_k][v_y] != 0:
+                        # m.__graf.modificar_valor(v_x, v_y, 1)
+                        m.__graf[v_x][v_y] = 1
 
         return m
 
@@ -254,22 +269,25 @@ class Graf:
         if self.__arestes >= self.__vertex - 1:
             s = set()
             s.add(0)
-            t = list()
+            t = set()
 
             while True:
-                minim_pes = self.__graf.maxim()
+                # minim_pes = self.__graf.maxim()
+                minim_pes = np.amax(self.__graf)
                 u = 0
                 v = 0
 
                 for v_i in range(self.__vertex):
                     for v_j in range(self.__vertex):
-                        if (0 != self.__graf.get_valor(v_i, v_j) <= minim_pes) and (v_i in s) and (v_j not in s):
-                            minim_pes = self.__graf.get_valor(v_i, v_j)
+                        # if (0 != self.__graf.get_valor(v_i, v_j) <= minim_pes) and (v_i in s) and (v_j not in s):
+                        if (0 != self.__graf[v_i][v_j] <= minim_pes) and (v_i in s) and (v_j not in s):
+                            # minim_pes = self.__graf.get_valor(v_i, v_j)
+                            minim_pes = self.__graf[v_i][v_j]
                             u = v_i
                             v = v_j
 
                 s.add(v)
-                t.append((u, v))
+                t.add((u, v))
 
                 if len(t) == self.__vertex - 1:  # Tenim que en un arbre T = (V, E) *sempre* es cumpleix que
                     # |E| = |V| - 1, on V és el conjunt dels vèrtexs i E el conjunt de les arestes.
@@ -285,7 +303,8 @@ class Graf:
         llista_arestes = self.algoritme_prim()
 
         for aresta in llista_arestes:
-            arbre.afegir_aresta(aresta[0], aresta[1], self.__graf.get_valor(aresta[0], aresta[1]))
+            # arbre.afegir_aresta(aresta[0], aresta[1], self.__graf.get_valor(aresta[0], aresta[1]))
+            arbre.__graf[aresta[0]][aresta[1]] = self.__graf[aresta[0]][aresta[1]]
 
         subprogrames.veure_graf(arbre)
 
