@@ -1,16 +1,18 @@
 import glob
-
-import classes
+import time
+import graf
 import subprogrames
 
 if __name__ == "__main__":
     while True:
+        print("Atenció!! Pot ser que faltin algunes opcions en aquest menú.\nAixò és degut a que, una vegada ja vaig "
+              "fer el menú gràfic, em vaig centrar en afegir les opcions noves allà i no en actualitzar aquest menú.")
         print("\nQuè vols fer?\n (0) Sortir\n (1) Crear un graf\n (2) Carregar un graf d'un fitxer")
         eleccio = int(input("→ "))
 
         if eleccio == 1:
-            print("Introdueix el nombre de vertexs:")
-            graf_creat = classes.Graf(int(input("→ ")))
+            print("Introdueix el nombre de vèrtexs:")
+            graf_creat = graf.Graf(int(input("→ ")))
             print("Quantes arestes vols afegir al graf?")
 
             for i in range(int(input("→ "))):
@@ -41,4 +43,4 @@ if __name__ == "__main__":
 
         else:
             print("\nSi us plau, introdueix una opció vàlida")
-            # time.sleep(0.5)
+            time.sleep(0.5)
